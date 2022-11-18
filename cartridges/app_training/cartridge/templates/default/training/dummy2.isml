@@ -1,0 +1,5 @@
+<div>
+<h3>Dummy2 dummy2 dummy2</h3>
+</div>
+
+<isinclude url="${URLUtils.url('Training-RenderTemplate')}" />
