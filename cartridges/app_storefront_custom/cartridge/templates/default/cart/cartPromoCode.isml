@@ -1,3 +1,5 @@
+<div id="show">
+  
 <a href="#show" id="promo-code-link" class="show">${Resource.msg('label.display.code', 'cart', null)}</a>
 
 <div id="promo-code-wrapper" class="hidden">
@@ -42,4 +44,5 @@
             </form>
         </div>
     </div>
+</div>
 </div>

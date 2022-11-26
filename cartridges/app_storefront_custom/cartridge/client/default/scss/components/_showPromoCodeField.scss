@@ -13,3 +13,13 @@
         text-decoration: underline;
     }
 }
+
+#content {
+    display: none;
+}
+#show:target #promo-code-wrapper {
+    display: block;
+}
+#show:target #promo-code-link {
+    display: none;
+}
