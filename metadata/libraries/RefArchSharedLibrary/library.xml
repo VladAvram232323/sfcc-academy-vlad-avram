@@ -11031,6 +11031,16 @@ Consideriamo molto seriamente i diritti relativi alla privacy degli utenti di qu
         </custom-attributes>
     </content>
 
+    <content content-id="sfra-exercise-4-custom-banner">
+        <display-name xml:lang="x-default">SFRA Exercise 4 Custom Banner</display-name>
+        <online-flag>true</online-flag>
+        <searchable-flag>false</searchable-flag>
+        <page-attributes/>
+        <custom-attributes>
+            <custom-attribute attribute-id="body" xml:lang="x-default">&lt;p&gt;Free Shipping over US$ 50.00&lt;/p&gt;</custom-attribute>
+        </custom-attributes>
+    </content>
+
     <content content-id="shipping">
         <display-name xml:lang="x-default">Information About Shipping</display-name>
         <display-name xml:lang="fr-FR">Informations sur la livraison</display-name>

@@ -2,7 +2,6 @@
 
     <isinclude template="/components/modules" sf-toolkit="off" />
 
-<div class="custom-image-container">
-        <iscontentasset aid="sfra-exercise-3-image"/>  
-</div>
+        <iscontentasset aid="sfra-exercise-4-custom-banner"/>  
+
 
