@@ -2,8 +2,8 @@
 
 var server = require("server");
 
-server.get("RenderingContent", function (req, res, next) {
-     res.render("service/rendering");
+server.get("Carousels", function (req, res, next) {
+     res.render("service/carousels");
         next();
 });
 
