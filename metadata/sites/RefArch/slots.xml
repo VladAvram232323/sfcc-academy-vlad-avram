@@ -624,50 +624,6 @@ Here you will find answers to your questions about shopping at our online store,
         </content>
     </slot-configuration>
 
-    <slot-configuration slot-id="exercise-7-slot" context="global" configuration-id="product-slot-exercise-7" default="true" assigned-to-site="true">
-        <template>slots/product/product_1x2.isml</template>
-        <enabled-flag>true</enabled-flag>
-        <content>
-            <products>
-                <product product-id="008884303989M"/>
-                <product product-id="008884304009M"/>
-                <product product-id="008884304016M"/>
-                <product product-id="008884303996M"/>
-            </products>
-        </content>
-    </slot-configuration>
-
-    <slot-configuration slot-id="products-exercise-7" context="global" configuration-id="products-exercise" default="true" assigned-to-site="true">
-        <template>slots/product/homePageProductSlot.isml</template>
-        <enabled-flag>true</enabled-flag>
-        <content>
-            <products>
-                <product product-id="nintendo-big-brain-academy-nintendodsM"/>
-                <product product-id="nintendo-mario-kart-nintendodsM"/>
-                <product product-id="ubi-soft-quick-yoga-training-nintendodsM"/>
-                <product product-id="lucasarts-star-wars-the-force-unleashed-pspM"/>
-                <product product-id="ubi-soft-my-spanish-coach-pspM"/>
-                <product product-id="easports-monopoly-ps3M"/>
-                <product product-id="easports-nascar-09-ps3M"/>
-                <product product-id="namco-eternal-sonata-ps3M"/>
-                <product product-id="sony-warhawk-ps3M"/>
-                <product product-id="atari-pipe-mania-pspM"/>
-            </products>
-        </content>
-    </slot-configuration>
-
-    <slot-configuration slot-id="product-slot-exercise-7" context="global" configuration-id="products-exercise-7" default="true" assigned-to-site="true">
-        <template>slots/product/product_1x2.isml</template>
-        <enabled-flag>true</enabled-flag>
-        <content>
-            <products>
-                <product product-id="008884303989M"/>
-                <product product-id="008884303996M"/>
-                <product product-id="008884304009M"/>
-            </products>
-        </content>
-    </slot-configuration>
-
     <slot-configuration slot-id="search-result-banner-m" context="global" configuration-id="search-results-banner" default="true" assigned-to-site="true">
         <description>Slot Banner that displays above search results</description>
         <template>slots/content/contentAssetBody.isml</template>
