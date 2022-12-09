@@ -1,0 +1,27 @@
+<isif condition="${pdict.route == "home"}">
+    
+    <div class="d-flex flex-column justify-content-center align-items-center p-1">
+        <h2>${Resource.msg('title.homepage', 'custom', null)}</h2>
+        <a href="https://zzrb-060.sandbox.us03.dx.commercecloud.salesforce.com/on/demandware.store/Sites-RefArch-Site/en_US/Login-Show">
+            <button type="button" class="btn btn-primary"> ${Resource.msg('button.home.text', 'custom', null)} </button>
+        </a>
+    </div>
+
+        <iselseif condition="${pdict.route == "category"}"/>
+
+            <div class="d-flex flex-column justify-content-center align-items-center p-1">
+                <h2>${Resource.msg('title.category', 'custom', null)}</h2>
+                <a href="https://zzrb-060.sandbox.us03.dx.commercecloud.salesforce.com/on/demandware.store/Sites-RefArch-Site">
+                    <button type="button" class="btn btn-primary">${Resource.msg('button.other.text', 'custom', null)}</button>
+                </a>
+            </div>
+
+                <iselse/>
+
+                    <div class="d-flex flex-column justify-content-center align-items-center p-1">
+                        <h2>${Resource.msg('title.product', 'custom', null)}</h2>
+                        <a href="https://zzrb-060.sandbox.us03.dx.commercecloud.salesforce.com/on/demandware.store/Sites-RefArch-Site">
+                            <button type="button" class="btn btn-primary">${Resource.msg('button.other.text', 'custom', null)}</button>
+                        </a>
+                    </div>
+</isif>
