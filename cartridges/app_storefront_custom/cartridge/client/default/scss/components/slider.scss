@@ -1,0 +1,19 @@
+.slider-wrapper {
+    padding: 0 2.5rem;
+    overflow-x: hidden;
+
+    .slider-content {
+        padding: 1rem 12rem;
+
+        @media (max-width: 1280px) {
+            padding: 1.5rem;
+        }
+    }
+    
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black;
+    font-size: 30px;
+}

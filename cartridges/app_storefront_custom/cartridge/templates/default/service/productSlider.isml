@@ -1,0 +1,4 @@
+<isdecorate template="common/layout/page">    
+    <isslot id="products-exercise-7" description="..." context="global"/>   
+</isdecorate>
+

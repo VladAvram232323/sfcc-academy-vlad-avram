@@ -1,0 +1,21 @@
+<isinclude template="/components/modules" />
+
+<div class="slider-wrapper">
+    <div class="products-slider">
+        <isloop items="${slotcontent.content}" var="product" status="loopState">
+            <div class="slider-content">
+                    <isinclude url="${URLUtils.url(
+                    'Tile-Show', 
+                    'pid', 
+                    product.ID, 
+                    'pview', 
+                    'tile', 
+                    'ratings', 
+                     true, 
+                    'swatches', 
+                    true)}"
+                    /> 
+            </div>
+        </isloop>
+    </div>
+</div>

@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-var server = require('server');
+var server = require("server");
 
-var URLUtils = require('dw/web/URLUtils');
-var Resource = require('dw/web/Resource');
-var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
-var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
-var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var URLUtils = require("dw/web/URLUtils");
+var Resource = require("dw/web/Resource");
+var csrfProtection = require("*/cartridge/scripts/middleware/csrf");
+var userLoggedIn = require("*/cartridge/scripts/middleware/userLoggedIn");
+var consentTracking = require("*/cartridge/scripts/middleware/consentTracking");
 
 /**
  * Creates a list of address model for the logged in user
@@ -14,9 +14,9 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
  * @returns {List} a plain list of objects of the current customer's addresses
  */
 function getList(customerNo) {
-    var CustomerMgr = require('dw/customer/CustomerMgr');
-    var AddressModel = require('*/cartridge/models/address');
-    var collections = require('*/cartridge/scripts/util/collections');
+    var CustomerMgr = require("dw/customer/CustomerMgr");
+    var AddressModel = require("*/cartridge/models/address");
+    var collections = require("*/cartridge/scripts/util/collections");
 
     var customer = CustomerMgr.getCustomerByCustomerNumber(customerNo);
     var rawAddressBook = customer.addressBook.getAddresses();
@@ -28,122 +28,122 @@ function getList(customerNo) {
     return addressBook;
 }
 
-server.get('List', userLoggedIn.validateLoggedIn, consentTracking.consent, function (req, res, next) {
+server.get("List", userLoggedIn.validateLoggedIn, consentTracking.consent, function (req, res, next) {
     var actionUrls = {
-        deleteActionUrl: URLUtils.url('Address-DeleteAddress').toString(),
-        listActionUrl: URLUtils.url('Address-List').toString()
+        deleteActionUrl: URLUtils.url("Address-DeleteAddress").toString(),
+        listActionUrl: URLUtils.url("Address-List").toString(),
     };
-    res.render('account/addressBook', {
+    res.render("account/addressBook", {
         addressBook: getList(req.currentCustomer.profile.customerNo),
         actionUrls: actionUrls,
         breadcrumbs: [
             {
-                htmlValue: Resource.msg('global.home', 'common', null),
-                url: URLUtils.home().toString()
+                htmlValue: Resource.msg("global.home", "common", null),
+                url: URLUtils.home().toString(),
             },
             {
-                htmlValue: Resource.msg('page.title.myaccount', 'account', null),
-                url: URLUtils.url('Account-Show').toString()
-            }
-        ]
+                htmlValue: Resource.msg("page.title.myaccount", "account", null),
+                url: URLUtils.url("Account-Show").toString(),
+            },
+        ],
     });
     next();
 });
 
 server.get(
-    'AddAddress',
+    "AddAddress",
     csrfProtection.generateToken,
     consentTracking.consent,
     userLoggedIn.validateLoggedIn,
     function (req, res, next) {
-        var addressForm = server.forms.getForm('address');
+        var addressForm = server.forms.getForm("address");
         addressForm.clear();
-        res.render('account/editAddAddress', {
+        res.render("account/editAddAddress", {
             addressForm: addressForm,
             breadcrumbs: [
                 {
-                    htmlValue: Resource.msg('global.home', 'common', null),
-                    url: URLUtils.home().toString()
+                    htmlValue: Resource.msg("global.home", "common", null),
+                    url: URLUtils.home().toString(),
                 },
                 {
-                    htmlValue: Resource.msg('page.title.myaccount', 'account', null),
-                    url: URLUtils.url('Account-Show').toString()
+                    htmlValue: Resource.msg("page.title.myaccount", "account", null),
+                    url: URLUtils.url("Account-Show").toString(),
                 },
                 {
-                    htmlValue: Resource.msg('label.addressbook', 'account', null),
-                    url: URLUtils.url('Address-List').toString()
-                }
-            ]
+                    htmlValue: Resource.msg("label.addressbook", "account", null),
+                    url: URLUtils.url("Address-List").toString(),
+                },
+            ],
         });
         next();
     }
 );
 
 server.get(
-    'EditAddress',
+    "EditAddress",
     csrfProtection.generateToken,
     userLoggedIn.validateLoggedIn,
     consentTracking.consent,
     function (req, res, next) {
-        var CustomerMgr = require('dw/customer/CustomerMgr');
-        var AddressModel = require('*/cartridge/models/address');
+        var CustomerMgr = require("dw/customer/CustomerMgr");
+        var AddressModel = require("*/cartridge/models/address");
 
         var addressId = req.querystring.addressId;
-        var customer = CustomerMgr.getCustomerByCustomerNumber(
-            req.currentCustomer.profile.customerNo
-        );
+        var customer = CustomerMgr.getCustomerByCustomerNumber(req.currentCustomer.profile.customerNo);
         var addressBook = customer.getProfile().getAddressBook();
         var rawAddress = addressBook.getAddress(addressId);
         var addressModel = new AddressModel(rawAddress);
-        var addressForm = server.forms.getForm('address');
+        var addressForm = server.forms.getForm("address");
         addressForm.clear();
 
         addressForm.copyFrom(addressModel.address);
 
-        res.render('account/editAddAddress', {
+        res.render("account/editAddAddress", {
             addressForm: addressForm,
             addressId: addressId,
             breadcrumbs: [
                 {
-                    htmlValue: Resource.msg('global.home', 'common', null),
-                    url: URLUtils.home().toString()
+                    htmlValue: Resource.msg("global.home", "common", null),
+                    url: URLUtils.home().toString(),
                 },
                 {
-                    htmlValue: Resource.msg('page.title.myaccount', 'account', null),
-                    url: URLUtils.url('Account-Show').toString()
+                    htmlValue: Resource.msg("page.title.myaccount", "account", null),
+                    url: URLUtils.url("Account-Show").toString(),
                 },
                 {
-                    htmlValue: Resource.msg('label.addressbook', 'account', null),
-                    url: URLUtils.url('Address-List').toString()
-                }
-            ]
+                    htmlValue: Resource.msg("label.addressbook", "account", null),
+                    url: URLUtils.url("Address-List").toString(),
+                },
+            ],
         });
 
         next();
     }
 );
 
-server.post('SaveAddress', csrfProtection.validateAjaxRequest, function (req, res, next) {
-    var CustomerMgr = require('dw/customer/CustomerMgr');
-    var Transaction = require('dw/system/Transaction');
-    var formErrors = require('*/cartridge/scripts/formErrors');
-    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
-    var addressHelpers = require('*/cartridge/scripts/helpers/addressHelpers');
+server.post("SaveAddress", csrfProtection.validateAjaxRequest, function (req, res, next) {
+    var CustomerMgr = require("dw/customer/CustomerMgr");
+    var Transaction = require("dw/system/Transaction");
+    var formErrors = require("*/cartridge/scripts/formErrors");
+    var accountHelpers = require("*/cartridge/scripts/helpers/accountHelpers");
+    var addressHelpers = require("*/cartridge/scripts/helpers/addressHelpers");
 
-    var addressForm = server.forms.getForm('address');
+    var addressForm = server.forms.getForm("address");
     var addressFormObj = addressForm.toObject();
     addressFormObj.addressForm = addressForm;
-    var customer = CustomerMgr.getCustomerByCustomerNumber(
-        req.currentCustomer.profile.customerNo
-    );
+    var customer = CustomerMgr.getCustomerByCustomerNumber(req.currentCustomer.profile.customerNo);
     var addressBook = customer.getProfile().getAddressBook();
     if (addressForm.valid) {
         res.setViewData(addressFormObj);
-        this.on('route:BeforeComplete', function () { // eslint-disable-line no-shadow
+        this.on("route:BeforeComplete", function () {
+            // eslint-disable-line no-shadow
             var formInfo = res.getViewData();
             Transaction.wrap(function () {
                 var address = null;
-                if (formInfo.addressId.equals(req.querystring.addressId) || !addressBook.getAddress(formInfo.addressId)) {
+                if (
+                    formInfo.addressId.equals(req.querystring.addressId) ||
+                    !addressBook.getAddress(formInfo.addressId)
+                ) {
                     address = req.querystring.addressId
                         ? addressBook.getAddress(req.querystring.addressId)
                         : addressBook.createAddress(formInfo.addressId);
@@ -162,16 +162,15 @@ server.post('SaveAddress', csrfProtection.validateAjaxRequest, function (req, re
 
                     res.json({
                         success: true,
-                        redirectUrl: URLUtils.url('Address-List').toString()
+                        redirectUrl: URLUtils.url("Address-List").toString(),
                     });
                 } else {
                     formInfo.addressForm.valid = false;
                     formInfo.addressForm.addressId.valid = false;
-                    formInfo.addressForm.addressId.error =
-                        Resource.msg('error.message.idalreadyexists', 'forms', null);
+                    formInfo.addressForm.addressId.error = Resource.msg("error.message.idalreadyexists", "forms", null);
                     res.json({
                         success: false,
-                        fields: formErrors.getFormErrors(addressForm)
+                        fields: formErrors.getFormErrors(addressForm),
                     });
                 }
             });
@@ -179,16 +178,16 @@ server.post('SaveAddress', csrfProtection.validateAjaxRequest, function (req, re
     } else {
         res.json({
             success: false,
-            fields: formErrors.getFormErrors(addressForm)
+            fields: formErrors.getFormErrors(addressForm),
         });
     }
     return next();
 });
 
-server.get('DeleteAddress', userLoggedIn.validateLoggedInAjax, function (req, res, next) {
-    var CustomerMgr = require('dw/customer/CustomerMgr');
-    var Transaction = require('dw/system/Transaction');
-    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
+server.get("DeleteAddress", userLoggedIn.validateLoggedInAjax, function (req, res, next) {
+    var CustomerMgr = require("dw/customer/CustomerMgr");
+    var Transaction = require("dw/system/Transaction");
+    var accountHelpers = require("*/cartridge/scripts/helpers/accountHelpers");
 
     var data = res.getViewData();
     if (data && !data.loggedin) {
@@ -198,13 +197,12 @@ server.get('DeleteAddress', userLoggedIn.validateLoggedInAjax, function (req, re
 
     var addressId = req.querystring.addressId;
     var isDefault = req.querystring.isDefault;
-    var customer = CustomerMgr.getCustomerByCustomerNumber(
-        req.currentCustomer.profile.customerNo
-    );
+    var customer = CustomerMgr.getCustomerByCustomerNumber(req.currentCustomer.profile.customerNo);
     var addressBook = customer.getProfile().getAddressBook();
     var address = addressBook.getAddress(addressId);
     var UUID = address.getUUID();
-    this.on('route:BeforeComplete', function () { // eslint-disable-line no-shadow
+    this.on("route:BeforeComplete", function () {
+        // eslint-disable-line no-shadow
         var length;
         Transaction.wrap(function () {
             addressBook.removeAddress(address);
@@ -221,30 +219,27 @@ server.get('DeleteAddress', userLoggedIn.validateLoggedInAjax, function (req, re
         if (length === 0) {
             res.json({
                 UUID: UUID,
-                defaultMsg: Resource.msg('label.addressbook.defaultaddress', 'account', null),
-                message: Resource.msg('msg.no.saved.addresses', 'address', null)
+                defaultMsg: Resource.msg("label.addressbook.defaultaddress", "account", null),
+                message: Resource.msg("msg.no.saved.addresses", "address", null),
             });
         } else {
-            res.json({ UUID: UUID,
-                defaultMsg: Resource.msg('label.addressbook.defaultaddress', 'account', null)
-            });
+            res.json({ UUID: UUID, defaultMsg: Resource.msg("label.addressbook.defaultaddress", "account", null) });
         }
     });
     return next();
 });
 
-server.get('SetDefault', userLoggedIn.validateLoggedIn, function (req, res, next) {
-    var CustomerMgr = require('dw/customer/CustomerMgr');
-    var Transaction = require('dw/system/Transaction');
-    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
+server.get("SetDefault", userLoggedIn.validateLoggedIn, function (req, res, next) {
+    var CustomerMgr = require("dw/customer/CustomerMgr");
+    var Transaction = require("dw/system/Transaction");
+    var accountHelpers = require("*/cartridge/scripts/helpers/accountHelpers");
 
     var addressId = req.querystring.addressId;
-    var customer = CustomerMgr.getCustomerByCustomerNumber(
-        req.currentCustomer.profile.customerNo
-    );
+    var customer = CustomerMgr.getCustomerByCustomerNumber(req.currentCustomer.profile.customerNo);
     var addressBook = customer.getProfile().getAddressBook();
     var address = addressBook.getAddress(addressId);
-    this.on('route:BeforeComplete', function () { // eslint-disable-line no-shadow
+    this.on("route:BeforeComplete", function () {
+        // eslint-disable-line no-shadow
         Transaction.wrap(function () {
             addressBook.setPreferredAddress(address);
         });
@@ -252,16 +247,16 @@ server.get('SetDefault', userLoggedIn.validateLoggedIn, function (req, res, next
         // Send account edited email
         accountHelpers.sendAccountEditedEmail(customer.profile);
 
-        res.redirect(URLUtils.url('Address-List'));
+        res.redirect(URLUtils.url("Address-List"));
     });
     next();
 });
 
-server.get('Header', server.middleware.include, function (req, res, next) {
+server.get("Header", server.middleware.include, function (req, res, next) {
     if (!req.currentCustomer.profile) {
-        res.render('account/header-anon', {});
+        res.render("account/header-anon", {});
     } else {
-        res.render('account/header-logged', { name: req.currentCustomer.profile.firstName });
+        res.render("account/header-logged", { name: req.currentCustomer.profile.firstName });
     }
     next();
 });
