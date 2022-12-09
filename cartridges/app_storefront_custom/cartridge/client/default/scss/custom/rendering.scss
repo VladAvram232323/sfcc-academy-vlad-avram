@@ -1,0 +1,21 @@
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .content-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        span {
+            padding: .5rem;
+
+            h3 {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+        }
+    }
+}
