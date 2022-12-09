@@ -1,0 +1,25 @@
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+#promo-code-link {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+#content {
+    display: none;
+}
+#show:target #promo-code-wrapper {
+    display: block;
+}
+#show:target #promo-code-link {
+    display: none;
+}
