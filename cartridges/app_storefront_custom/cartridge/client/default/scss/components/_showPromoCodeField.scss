@@ -1,0 +1,15 @@
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+#promo-code-link {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
